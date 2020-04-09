@@ -1,0 +1,8 @@
+.idea/
+/node_modules/
+/vendor/
+/docker/mysql/data/
+/node_modules/
+/resources/cache/
+/public/dist/
+

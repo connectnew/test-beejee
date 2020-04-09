@@ -1,0 +1,62 @@
+version: '3'
+
+services:
+
+  php:
+    build:
+      context: docker/php
+    image: php:7.3-fpm
+    container_name: beejee_php
+    links:
+      - db
+    depends_on:
+      - db
+    environment:
+      XDEBUG_CONFIG: "remote_host=host.docker.internal"
+      PHP_IDE_CONFIG: "serverName=Docker"
+    volumes:
+      - .:/www
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini:ro
+    networks:
+      mynet:
+        ipv4_address: 172.70.0.3
+
+  nginx:
+    depends_on:
+      - php
+    image: nginx:latest
+    container_name: beejee_nginx
+    working_dir: /www
+    ports:
+      - 8001:80
+    volumes:
+      - .:/www
+      - ./docker/nginx:/etc/nginx/conf.d
+    networks:
+      mynet:
+        ipv4_address: 172.70.0.4
+
+  db:
+    image: mysql:8
+    container_name: beejee_db
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/init-dump:/docker-entrypoint-initdb.d
+      - ./docker/mysql/conf.d:/etc/mysql/conf.d
+    ports:
+      - 33062:3306
+    environment:
+      MYSQL_DATABASE: beejee
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234567
+      MYSQL_ROOT_PASSWORD: 1234567
+    networks:
+      mynet:
+        ipv4_address: 172.70.0.2
+
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.70.0.0/24
