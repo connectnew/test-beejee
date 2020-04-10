@@ -26,11 +26,33 @@ class TodoController extends Controller
 
     public function index(Request $request)
     {
-        $list = Todo::paginate(3);
+        $validator = $this->validator()->make($request->all(), [
+            'order_by' => 'nullable|string|max:8|in:user_name,user_email,text,ready',
+            'order' => 'nullable|string|max:4|in:asc,desc',
+            'page' => 'nullable|integer',
+        ]);
+
+        if ($validator->fails()) {
+            $request->page = 1;
+            $request->order = 'asc';
+            $request->order_by = 'user_name';
+        }
+
+        $request->page = $request->page ?? 1;
+        $request->order = $request->order ?? 'asc';
+        $request->order_by = $request->order_by ?? 'user_name';
+
+//var_dump($request->all()); exit();
+//
+//        $list = Todo::orderBy($request->get('order_by'), $request->get('order'))
+//            ->paginate(3, ['*'], 'page', $request->get('page'));
+
+        $list = Todo::paginate(3, ['*'], 'page', $request->get('page'));
 
         echo $this->render('home.todo.index', [
             'auth' => $this->auth,
             'list' => $list,
+            'request' => $request,
             'success' => [
                 'add' => (bool) $request->success_add,
                 'edit' => (bool) $request->success_edit,
@@ -76,7 +98,8 @@ class TodoController extends Controller
 
         echo $this->render('home.todo.add', [
             'auth' => $this->auth,
-            'errors' => $errors
+            'errors' => $errors,
+            'request' => $request,
         ]);
     }
 
@@ -85,7 +108,7 @@ class TodoController extends Controller
         if (!$this->auth->id) {
             header("Location: /login?access_denied=1");
         }
-var_dump($this->auth); exit();
+
         $errors = new MessageBag();
         $todo = Todo::findOrFail($request->id);
 

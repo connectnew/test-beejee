@@ -39,19 +39,19 @@ const workboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
-	target: "web",
-	entry: {
-		index: './resources/js/index.js'
-	},
+	entry: './resources/js/index.js',
 
 	output: {
-		chunkFilename: '[name].[chunkhash].js',
-		filename: '[name].[chunkhash].js'
+		// chunkFilename: '[name].[chunkhash].js',
+		// filename: '[name].[chunkhash].js',
+		chunkFilename: '[name].bundle.js',
+		filename: '[name].bundle.js',
+		path: path.resolve(__dirname, 'public/dist'),
 	},
 
 	plugins: [
 		new webpack.ProgressPlugin(),
-		new MiniCssExtractPlugin({ filename: 'main.[chunkhash].css' }),
+		new MiniCssExtractPlugin({ filename: 'index.[chunkhash].css' }),
 		new workboxPlugin.GenerateSW({
 			swDest: 'sw.js',
 			clientsClaim: true,
@@ -63,7 +63,7 @@ module.exports = {
 		rules: [
 			{
 				test: /.(js|jsx)$/,
-				include: [path.resolve(__dirname, 'public/dist')],
+				include: [path.resolve(__dirname, 'resources/js')],
 				loader: 'babel-loader'
 			},
 			{
@@ -77,18 +77,22 @@ module.exports = {
 					},
 					{
 						loader: 'css-loader',
-
 						options: {
 							sourceMap: true
 						}
 					},
 					{
 						loader: 'sass-loader',
-
 						options: {
 							sourceMap: true
 						}
-					}
+					},
+					// {
+					// 	loader: 'url-loader',
+					// 	options: {
+					// 		limit: 32768,
+					// 	}
+					// },
 				]
 			}
 		]
@@ -110,5 +114,14 @@ module.exports = {
 			minSize: 30000,
 			name: true
 		}
-	}
+	},
+
+	resolve: {
+		alias: {
+			'@js': path.resolve(__dirname, 'resources/js'),
+			'@scss': path.resolve(__dirname, 'resources/scss'),
+			'@font': path.resolve(__dirname, 'resources/fonts'),
+		},
+		// extensions: ['*', '.json', '.js', '.jsx', '.vue', '.ts', '.tsx'],
+	},
 };
