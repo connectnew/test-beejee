@@ -1,2 +1,6 @@
-import '../scss/index.scss';
-console.log("Hello World from index main file!");
+import '@scss/index.scss';
+
+import 'popper.js'
+import 'bootstrap';
+
+console.log('test 123');

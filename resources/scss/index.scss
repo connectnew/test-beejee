@@ -1,6 +1,9 @@
-// @import "variables";
-// @import "~font-awesome/scss/font-awesome.scss";
+@import "variables";
 
-body {
-  background-color: red;
+@import "~font-awesome/scss/font-awesome.scss";
+
+@import "~bootstrap/scss/bootstrap.scss";
+
+.pointer {
+  cursor: pointer;
 }

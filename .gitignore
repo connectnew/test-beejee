@@ -4,5 +4,7 @@
 /docker/mysql/data/
 /node_modules/
 /resources/cache/
-/public/dist/
 
+/public/dist/
+!/public/dist/main.css
+!/public/dist/main.js

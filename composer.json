@@ -1,6 +1,6 @@
 {
-    "name": "ivan/beejee-test",
-    "description": "test for beejee",
+    "name": "ivan/mvc-l-b",
+    "description": "mvc-l-b",
     "type": "project",
     "require": {
         "jenssegers/blade": "^1.3",

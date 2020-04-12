@@ -1,5 +1,5 @@
 {
-  "beejee-test": {
+  "mvc-l-b": {
     "configuration": {
       "config": {
         "configName": "config",
@@ -19,9 +19,7 @@
         ],
         "webpackOptions": {
           "mode": "'development'",
-          "entry": {
-            "index": "'./resources/index.js'"
-          },
+          "entry": "'./resources/js/index.js'",
           "output": {
             "chunkFilename": "'[name].[chunkhash].js'",
             "filename": "'[name].[chunkhash].js'"
@@ -36,7 +34,7 @@
               {
                 "test": "/.(js|jsx)$/",
                 "include": [
-                  "path.resolve(__dirname, 'resources')"
+                  "path.resolve(__dirname, 'resources/js')"
                 ],
                 "loader": "'babel-loader'"
               },

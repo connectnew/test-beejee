@@ -21,7 +21,7 @@ $last = ($last - $page) > 3 ? ($page + 3) : $last;
             @endif
 
             @for ($first; $first <= $last; $first++)
-                @if ($first === $page)
+                @if ($first == $page)
                     <li class="page-item disabled" aria-disabled="true"><span class="page-link">{{ $first }}</span></li>
                 @else
                     <li class="page-item"><a class="page-link" href="{{ $paginator->url($first) . $append }}">{{ $first }}</a></li>

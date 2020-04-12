@@ -7,10 +7,22 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col" onclick="window.orderTodo('user_name')">Name </th>
-            <th scope="col" onclick="window.orderTodo('user_email')">Email</th>
-            <th scope="col" onclick="window.orderTodo('text')">Text</th>
-            <th scope="col" onclick="window.orderTodo('ready')">Ready</th>
+            <th scope="col" class="pointer" onclick="window.orderTodo('user_name')">
+                Name
+                @include('home.todo.inc.order', ['name' => 'user_name', 'request' => $request])
+            </th>
+            <th scope="col" class="pointer" onclick="window.orderTodo('user_email')">
+                Email
+                @include('home.todo.inc.order', ['name' => 'user_email', 'request' => $request])
+            </th>
+            <th scope="col" class="pointer" onclick="window.orderTodo('text')">
+                Text
+                @include('home.todo.inc.order', ['name' => 'text', 'request' => $request])
+            </th>
+            <th scope="col" class="pointer" onclick="window.orderTodo('ready')">
+                Ready
+                @include('home.todo.inc.order', ['name' => 'ready', 'request' => $request])
+            </th>
             <th scope="col">Edited</th>
             <th scope="col"></th>
         </tr>

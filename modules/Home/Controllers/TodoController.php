@@ -27,27 +27,23 @@ class TodoController extends Controller
     public function index(Request $request)
     {
         $validator = $this->validator()->make($request->all(), [
-            'order_by' => 'nullable|string|max:8|in:user_name,user_email,text,ready',
+            'order_by' => 'nullable|string|max:11|in:user_name,user_email,text,ready',
             'order' => 'nullable|string|max:4|in:asc,desc',
             'page' => 'nullable|integer',
         ]);
 
         if ($validator->fails()) {
-            $request->page = 1;
-            $request->order = 'asc';
-            $request->order_by = 'user_name';
+            header("Location: /?page=1&order_by=user_name&order=asc");
         }
 
-        $request->page = $request->page ?? 1;
-        $request->order = $request->order ?? 'asc';
-        $request->order_by = $request->order_by ?? 'user_name';
+        $request->merge([
+            'page' => $request->page ?? 1,
+            'order' => $request->order ?? 'asc',
+            'order_by' => $request->order_by ?? 'user_name',
+        ]);
 
-//var_dump($request->all()); exit();
-//
-//        $list = Todo::orderBy($request->get('order_by'), $request->get('order'))
-//            ->paginate(3, ['*'], 'page', $request->get('page'));
-
-        $list = Todo::paginate(3, ['*'], 'page', $request->get('page'));
+        $list = Todo::orderBy($request->order_by, $request->order)
+            ->paginate(3, ['*'], 'page', $request->page);
 
         echo $this->render('home.todo.index', [
             'auth' => $this->auth,

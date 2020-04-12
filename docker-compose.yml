@@ -6,7 +6,7 @@ services:
     build:
       context: docker/php
     image: php:7.3-fpm
-    container_name: beejee_php
+    container_name: mvc_l_b_php
     links:
       - db
     depends_on:
@@ -25,7 +25,7 @@ services:
     depends_on:
       - php
     image: nginx:latest
-    container_name: beejee_nginx
+    container_name: mvc_l_b_nginx
     working_dir: /www
     ports:
       - 8001:80
@@ -38,7 +38,7 @@ services:
 
   db:
     image: mysql:8
-    container_name: beejee_db
+    container_name: mvc_l_b_db
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
       - ./docker/mysql/init-dump:/docker-entrypoint-initdb.d
@@ -46,7 +46,7 @@ services:
     ports:
       - 33062:3306
     environment:
-      MYSQL_DATABASE: beejee
+      MYSQL_DATABASE: mvc-l-b
       MYSQL_USER: root
       MYSQL_PASSWORD: 1234567
       MYSQL_ROOT_PASSWORD: 1234567
