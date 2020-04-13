@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
 
@@ -20,6 +20,14 @@ services:
     networks:
       mynet:
         ipv4_address: 172.70.0.3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 300M
+        reservations:
+          cpus: '0.25'
+          memory: 300M
 
   nginx:
     depends_on:
