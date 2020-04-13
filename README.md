@@ -1,4 +1,5 @@
 Please update your docker and docker-compose to latest version.
+mysql password: 1234567
 ````
 mkdir resources/cache
 chmod 777 -R resources/cache
