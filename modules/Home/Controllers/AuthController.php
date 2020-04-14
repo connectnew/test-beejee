@@ -28,6 +28,7 @@ class AuthController extends Controller
                     $_SESSION["auth"] = $user;
 
                     header("Location: /");
+                    exit();
 
                 } else {
                     $errors->add('name', 'You should enter correct email and password');
@@ -35,7 +36,6 @@ class AuthController extends Controller
 
             } else {
                 $errors = $validator->errors();
-                var_dump($errors);
             }
         }
 
@@ -69,6 +69,7 @@ class AuthController extends Controller
                 $_SESSION["auth"] = $user;
 
                 header("Location: /");
+                exit();
 
             } else {
                 $errors = $validator->errors();
@@ -85,5 +86,6 @@ class AuthController extends Controller
         }
 
         header("Location: /");
+        exit();
     }
 }

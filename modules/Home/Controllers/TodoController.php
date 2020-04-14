@@ -34,6 +34,7 @@ class TodoController extends Controller
 
         if ($validator->fails()) {
             header("Location: /?page=1&order_by=user_name&order=asc");
+            exit();
         }
 
         $request->merge([
@@ -86,6 +87,7 @@ class TodoController extends Controller
                 Todo::create($newTodo);
 
                 header("Location: /?success_add=1");
+                exit();
 
             } else {
                 $errors = $validator->errors();
@@ -103,6 +105,7 @@ class TodoController extends Controller
     {
         if (!$this->auth->id) {
             header("Location: /login?access_denied=1");
+            exit();
         }
 
         $errors = new MessageBag();
@@ -126,6 +129,7 @@ class TodoController extends Controller
                 $todo->save();
 
                 header("Location: /?success_edit=1");
+                exit();
 
             } else {
                 $errors = $validator->errors();
@@ -150,5 +154,6 @@ class TodoController extends Controller
         $todo->save();
 
         header("Location: /?success_edit=1");
+        exit();
     }
 }
