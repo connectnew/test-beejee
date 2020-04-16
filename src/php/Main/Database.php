@@ -17,9 +17,6 @@ class Database
     public static function connect(): void
     {
         $db = Param::get('db');
-        $path = Param::get('baseDir');
-
-        // var_dump(is_dir($path . 'vendor/illuminate')); exit();
 
         $capsule = new Capsule();
         $capsule->addConnection([
@@ -39,10 +36,6 @@ class Database
         $capsule->bootEloquent();
 
         self::setCapsule($capsule);
-
-//        Paginator::viewFactoryResolver(function () {
-//            return [\Illuminate\View\Factory::class, \Illuminate\Contracts\View\Factory::class];
-//        });
     }
 
     public static function setCapsule(Capsule $capsule): void
